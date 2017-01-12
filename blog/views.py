@@ -4,7 +4,13 @@ from django.views.generic.dates import ArchiveIndexView, YearArchiveView, MonthA
 from tagging.models import Tag, TaggedItem
 from tagging.views import TaggedObjectList
 
+from django.views.generic.edit import FormView
+from blog.forms import PostSearchForm
+from django.db.models import Q
+from django.shortcuts import render
+
 from blog.models import Post
+from bookmark.models import Bookmark
 
 # Create your views here.
 
@@ -57,3 +63,28 @@ class PostTAV(TodayArchiveView):
     date_field = 'modify_date'
     # 모델명_archive_day.html default 템플릿으로 사용, DayArchiveView 제네릭과 동일한 뷰 사용하는 것에 주의.
     # url에 /blog/today 라고 하면 이리 실행
+
+class SearchFormView(FormView):
+    # FormView 제네릭 뷰는 요청 받으면
+    # GET 방식일 경우 걍 클래스 로직을 타고 흘러감
+    # POST 방식일 경우 데이터가 적절한지 확인하고 form_valid() 함수를 실행시킴
+    form_class = PostSearchForm
+    template_name = 'blog/post_search.html'
+
+    def form_valid(self, form):
+        schWord = '%s' % self.request.POST['search_word']
+        post_list = Post.objects.filter(Q(title__icontains=schWord)
+            | Q(description__icontains=schWord)
+            | Q(content__icontains=schWord)).distinct()
+
+        bookmark_list = Bookmark.objects.filter(Q(title__icontains=schWord)).distinct()
+        # Q객체는 매칭 조건을 다양하게 줄 수 있도록 한다.
+        # icontains는 대소문자 구분없이 단어가 포함되어 있다면 추출 (LIKE 연산자같이?)
+        # distinct() 함수는 중복 값은 제거 한다.
+
+        context = {}
+        context['form'] = form
+        context['search_term'] = schWord
+        context['object_list'] = post_list
+        context['bookmark_list'] = bookmark_list
+        return render(self.request, self.template_name, context)
