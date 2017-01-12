@@ -1,9 +1,16 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.dates import ArchiveIndexView, YearArchiveView, MonthArchiveView, DayArchiveView, TodayArchiveView
+
+from tagging.models import Tag, TaggedItem
+from tagging.views import TaggedObjectList
 
 from blog.models import Post
 
 # Create your views here.
+
+#--- TemplateView
+class TagTV(TemplateView):
+    template_name = 'tagging/tagging_cloud.html'
 
 #--- ListView
 class PostLV(ListView):
@@ -11,6 +18,10 @@ class PostLV(ListView):
     template_name = 'blog/post_all.html' # 사용할 템플릿 정의, default blog/post_list.html _list 붙여주게됨.
     context_object_name = 'posts' # 템플릿으로 넘겨줄 컨텍스트 변수명을 정의, default명은 object_list
     paginate_by = 2 # 한페이지에 보여주게 되는 갯수 정의
+
+class PostTOL(TaggedObjectList):
+    model = Post
+    template_name = 'tagging/tagging_post_list.html'
 
 #--- DetailView
 class PostDV(DetailView): # 기본키 대신 slug로 상세 정보를 추출.

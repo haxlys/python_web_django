@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # 실제로 apps.py 에 보면 AppConfig import된 것을 확인 할 수 있다.
     'bookmark.apps.BookmarkConfig',
     'blog.apps.BlogConfig',
+    'tagging.apps.TaggingConfig',
 ]
 
 MIDDLEWARE = [
