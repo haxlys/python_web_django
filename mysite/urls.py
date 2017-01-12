@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.conf.urls.static import static
+from django.conf import settings
 
 from mysite.views import HomeView
 
@@ -29,6 +31,7 @@ urlpatterns = [
     url(r'^$', HomeView.as_view(), name='home'),
     url(r'^bookmark/', include('bookmark.urls', namespace='bookmark')), # url 정규식 인자 끝에 $가 없음에 유의
     url(r'^blog/', include('blog.urls', namespace='blog')),
+    url(r'^photo/', include('photo.urls', namespace='photo')),
 
     # Class-based views for Bookmark app
     #url(r'^bookmark/$', BookmarkLV.as_view(), name='index'),
@@ -37,7 +40,7 @@ urlpatterns = [
     # url(regex, view, kwargs=None, name=None, prefix='')
     # 앞의 2개는 필수 인자, 뒤의 3개는 선택 인자.
     # patterns() 함수는 1.8 이후로 사용되지 않음.
-]
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 # 간단한 로직은 아래와 같이 views.py 에서 처리하지 않고 바로 urls.py에서 처리 할 수도 있다.
 # from django.views.generic import ListView, DetailView

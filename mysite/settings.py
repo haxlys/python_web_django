@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'tagging.apps.TaggingConfig', # django-tagging 패키지로 tag 기능 추가
     'disqus',   # django-disqus 패키지로 댓글 기능 추가
-    'django.contrib.sites' # 댓글기능 추가시 추가
+    'django.contrib.sites', # 댓글기능 추가시 추가
+    'photo.apps.PhotoConfig',
 ]
 
 DISQUS_WEBSITE_SHORTNAME = 'python-web'
