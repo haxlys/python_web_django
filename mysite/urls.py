@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+from mysite.views import HomeView
+
 #from bookmark.views import BookmarkLV, BookmarkDV
 #from bookmark.views import *   # * 사용 가능
 
@@ -24,6 +26,7 @@ urlpatterns = [
     # url(r'^admin/', include(admin.site.urls)),
     # admin.site.urls 는 예외적으로 include() 함수를 사용하지 않아도 됨.
 
+    url(r'^$', HomeView.as_view(), name='home'),
     url(r'^bookmark/', include('bookmark.urls', namespace='bookmark')), # url 정규식 인자 끝에 $가 없음에 유의
     url(r'^blog/', include('blog.urls', namespace='blog')),
 
