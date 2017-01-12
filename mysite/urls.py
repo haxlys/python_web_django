@@ -13,10 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import include, url
 from django.contrib import admin
 
-from bookmark.views import BookmarkLV, BookmarkDV
+#from bookmark.views import BookmarkLV, BookmarkDV
 #from bookmark.views import *   # * 사용 가능
 
 urlpatterns = [
@@ -24,9 +24,12 @@ urlpatterns = [
     # url(r'^admin/', include(admin.site.urls)),
     # admin.site.urls 는 예외적으로 include() 함수를 사용하지 않아도 됨.
 
+    url(r'^bookmark/', include('bookmark.urls', namespace='bookmark')), # url 정규식 인자 끝에 $가 없음에 유의
+    url(r'^blog/', include('blog.urls', namespace='blog')),
+
     # Class-based views for Bookmark app
-    url(r'^bookmark/$', BookmarkLV.as_view(), name='index'),
-    url(r'^bookmark/(?P<pk>\d+)$', BookmarkDV.as_view(), name='detail'),
+    #url(r'^bookmark/$', BookmarkLV.as_view(), name='index'),
+    #url(r'^bookmark/(?P<pk>\d+)$', BookmarkDV.as_view(), name='detail'),
 
     # url(regex, view, kwargs=None, name=None, prefix='')
     # 앞의 2개는 필수 인자, 뒤의 3개는 선택 인자.

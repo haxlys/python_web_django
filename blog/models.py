@@ -24,8 +24,9 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self): # 지정된 하나의 데이터를 args로 부터 가져옵니다.
-        return reverse('blog:post_detail', args=(self.slug,))
+    def get_absolute_url(self): # url을 반환
+        return reverse('blog:post_detail', args=(self.slug,)) # 앱명:url name, args는 url 인자 순서
+        # url(r'^post/(?P<slug>[-\w]+)/$', PostDV.as_view(), name='post_detail'),
 
     def get_previous_post(self):
         return self.get_previous_by_modify_date()
