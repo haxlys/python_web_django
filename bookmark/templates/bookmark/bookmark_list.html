@@ -1,20 +1,17 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Django bookmark List</title>
-  </head>
-  <body>
+{% extends 'base.html' %}
+
+{% block title %}Django Bookmark List{% endblock %}
+
+{% block content %}
     <div id="content">
-      <h1>Bookmark List</h1>
-      <ul>
-        {% for bookmark in object_list %}
-        <li><a href="{% url 'detail' bookmark.id %}">{{ bookmark }}</a></li>
-        {% endfor %}
-      </ul>
+        <h1>Bookmark List</h1>
+        <ul>
+            {% for bookmark in object_list %}
+            <li><a href="{% url 'bookmark:detail' bookmark.id %}">{{ bookmark }}</a></li>
+            {% endfor %}
+        </ul>
     </div>
-  </body>
-</html>
+{% endblock %}
 <!--
 { % url %} 태그는 url 패턴에서 url문자열을 추출하는 역할을 한다.
 bookmark.id 는 detail url에서 pk파라미터 위치로 자리한다.
