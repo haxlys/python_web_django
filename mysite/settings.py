@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     # 앱 디렉토리만 명시하면 __init__.py 에서 default_app_config 항목으로 지정된 클래스를 설정 클래스로 지정.
     # default_app_config 항목이 정의되지 않았다면 장고의 기본 AppConfig 클래스를 설정 클래스로 사용.
     # 실제로 apps.py 에 보면 AppConfig import된 것을 확인 할 수 있다.
-    'bookmark.apps.BookmarkConfig'
+    'bookmark.apps.BookmarkConfig',
+    'blog.apps.BlogConfig',
 ]
 
 MIDDLEWARE = [
