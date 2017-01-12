@@ -43,8 +43,13 @@ INSTALLED_APPS = [
     # 실제로 apps.py 에 보면 AppConfig import된 것을 확인 할 수 있다.
     'bookmark.apps.BookmarkConfig',
     'blog.apps.BlogConfig',
-    'tagging.apps.TaggingConfig',
+    'tagging.apps.TaggingConfig', # django-tagging 패키지로 tag 기능 추가
+    'disqus',   # django-disqus 패키지로 댓글 기능 추가
+    'django.contrib.sites' # 댓글기능 추가시 추가
 ]
+
+DISQUS_WEBSITE_SHORTNAME = 'python-web'
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
